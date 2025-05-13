@@ -2,8 +2,12 @@
 <html lang="en">
   <head>
     <script>
+      console.log("Checking authentication...");
       if (localStorage.getItem("authenticated") !== "true") {
+        console.log("Not authenticated, redirecting to login...");
         window.location.href = "login.html"; // Redirect if not authenticated
+      } else {
+        console.log("Authenticated, loading content...");
       }
     </script>
     
@@ -13,6 +17,42 @@
     <script type="module" crossorigin src="assets/index-cde09be3.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <h1>Generated Content</h1>
+    <div id="content"></div> <!-- This will hold the generated content -->
+    
+    <script>
+      console.log("index.html: Starting content generation");
+
+      const generateContent = async () => {
+        console.log("Sending request to backend...");
+
+        const response = await fetch('https://chloebotbackend-production.up.railway.app/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            companyName: 'Your Company',
+            productService: 'Product/Service Name',
+            keyPoints: 'Key points here',
+            clientMaterials: 'Client materials',
+            brief: 'Brief details',
+            contentType: 'Advertorial',
+            wordCount: 500, // Example
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Response from backend:", data);
+          document.getElementById('content').innerText = data.content;
+        } else {
+          console.error('Error generating content:', response.statusText);
+        }
+      };
+
+      // Trigger content generation
+      generateContent();
+    </script>
   </body>
 </html>
