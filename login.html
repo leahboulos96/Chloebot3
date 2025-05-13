@@ -1,4 +1,3 @@
-<!-- frontend/login.html -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,17 +23,16 @@
     <input type="password" id="password" placeholder="Password" />
     <button onclick="checkPassword()">Enter</button>
 
-   <script>
-  function checkPassword() {
-    const pw = document.getElementById("password").value;
-    if (pw === "AMRbot2024!") {
-      localStorage.setItem("authenticated", "true");
-      window.location.href = "index.html"; // ← THIS IS THE FIX
-    } else {
-      alert("Incorrect password");
-    }
-  }
-</script>
-
+    <script>
+      function checkPassword() {
+        const pw = document.getElementById("password").value;
+        if (pw === "AMRbot2024!") {
+          localStorage.setItem("authenticated", "true");
+          window.location.href = "index.html"; // Redirect to the main page after successful login
+        } else {
+          alert("Incorrect password");
+        }
+      }
+    </script>
   </body>
 </html>
